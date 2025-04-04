@@ -1,0 +1,25 @@
+steps:
+  # Paso 1: Construir la aplicación con Gradle (sin ejecutar tests)
+  - name: 'gradle:jdk17'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - './gradlew clean build -x test'
+
+  # Paso 2: Construir la imagen Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/arched-memory-454115-b3/races-microservices-app',
+      '.'
+    ]
+
+  # Paso 3: Subir la imagen a Google Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'gcr.io/arched-memory-454115-b3/races-microservices-app'
+    ]
+
+images:
+  - 'gcr.io/arched-memory-454115-b3/races-microservices-app'
