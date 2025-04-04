@@ -20,6 +20,20 @@ steps:
       'push',
       'gcr.io/arched-memory-454115-b3/races-microservices-app'
     ]
+  # Paso 4: Desplegar automáticamente en Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'races-microservices-app' # este debe ser el nombre EXACTO del servicio
+      - '--image'
+      - 'gcr.io/arched-memory-454115-b3/races-microservices-app'
+      - '--region'
+      - 'us-central1' # ajusta si usas otra región
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
 
 images:
   - 'gcr.io/arched-memory-454115-b3/races-microservices-app'
