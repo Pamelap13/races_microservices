@@ -37,3 +37,6 @@ steps:
 
 images:
   - 'gcr.io/arched-memory-454115-b3/races-microservices-app'
+
+options:
+    logging: CLOUD_LOGGING_ONLY
