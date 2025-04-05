@@ -1,5 +1,7 @@
 package com.droipup.races_microservices.repository;
 
+import com.droipup.races_microservices.dto.RaceDayDTO;
+import com.droipup.races_microservices.dto.RaceDetailBaseDTO;
 import com.droipup.races_microservices.dto.RaceDetailDTO;
 import com.droipup.races_microservices.dto.RacesListDTO;
 import com.droipup.races_microservices.model.Races;
@@ -20,8 +22,8 @@ public interface RaceRepository extends JpaRepository<Races, String> {
    List<RacesListDTO> findAllRaces();
 
    @Query("""
-           SELECT new com.droipup.races_microservices.dto.RaceDetailDTO(
-           r.name, r.description, r.organizer, r.eventLink, r.totalDistance, r.totalElevation,
+           SELECT new com.droipup.races_microservices.dto.RaceDetailBaseDTO(
+           r.id,r.name, r.description, r.organizer, r.eventLink, r.totalDistance, r.totalElevation,
             d.name, p.name, de.name 
            ) FROM Races r 
            JOIN r.districts d
@@ -29,5 +31,13 @@ public interface RaceRepository extends JpaRepository<Races, String> {
            JOIN p.departments de
            WHERE r.id = :raceId
            """)
-   Optional<RaceDetailDTO> findRacebyId(@Param("raceId") String raceId);
+   Optional<RaceDetailBaseDTO> findRacebyId(@Param("raceId") String raceId);
+
+
+   @Query("""
+           SELECT new com.droipup.races_microservices.dto.RaceDayDTO(
+           rd.distance,rd.elevation, rd.routeLink)
+           FROM RacesDays rd
+           WHERE rd.races.id = :raceId""")
+   List<RaceDayDTO> findRaceDaysById(@Param("raceId") String raceId);
 }

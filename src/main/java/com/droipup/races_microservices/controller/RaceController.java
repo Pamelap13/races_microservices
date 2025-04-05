@@ -24,7 +24,7 @@ public class RaceController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RaceDetailDTO> getRaceDetail(@PathVariable String id){
-        return raceService.getRaceDetail(id)
+        return raceService.getRaceDetailWithDays(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
 

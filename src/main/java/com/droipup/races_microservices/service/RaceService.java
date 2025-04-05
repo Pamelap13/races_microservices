@@ -1,5 +1,7 @@
 package com.droipup.races_microservices.service;
 
+import com.droipup.races_microservices.dto.RaceDayDTO;
+import com.droipup.races_microservices.dto.RaceDetailBaseDTO;
 import com.droipup.races_microservices.dto.RaceDetailDTO;
 import com.droipup.races_microservices.dto.RacesListDTO;
 import com.droipup.races_microservices.repository.RaceRepository;
@@ -19,7 +21,30 @@ public class RaceService {
         return  raceRepository.findAllRaces();
     }
 
-    public Optional<RaceDetailDTO> getRaceDetail(String id){
-        return raceRepository.findRacebyId(id);
+//    public Optional<RaceDetailDTO> getRaceDetail(String id){
+//        return raceRepository.findRacebyId(id);
+//    }
+
+    public Optional<RaceDetailDTO> getRaceDetailWithDays(String raceId){
+        Optional<RaceDetailBaseDTO> base = raceRepository.findRacebyId(raceId);
+        if (base.isEmpty()) return Optional.empty();
+
+        List<RaceDayDTO> raceDays = raceRepository.findRaceDaysById(raceId);
+
+        RaceDetailBaseDTO b = base.get();
+        RaceDetailDTO dto = new RaceDetailDTO(
+                b.name(),
+                b.description(),
+                b.organizer(),
+                b.eventLink(),
+                b.totalDistance(),
+                b.totalElevation(),
+                b.district(),
+                b.province(),
+                b.department(),
+                raceDays
+        );
+
+        return Optional.of(dto);
     }
 }
