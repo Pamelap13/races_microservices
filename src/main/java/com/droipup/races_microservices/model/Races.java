@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "races")
 @Getter
@@ -31,5 +33,10 @@ public class Races {
     private Double totalDistance;
     @Column(name = "total_elevation")
     private Double totalElevation;
+    @Column(name = "start_date")
+    private LocalDate startDate;
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
 
 }

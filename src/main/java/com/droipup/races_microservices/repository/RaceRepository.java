@@ -24,7 +24,7 @@ public interface RaceRepository extends JpaRepository<Races, String> {
    @Query("""
            SELECT new com.droipup.races_microservices.dto.RaceDetailBaseDTO(
            r.id,r.name, r.description, r.organizer, r.eventLink, r.totalDistance, r.totalElevation,
-            d.name, p.name, de.name 
+            d.name, p.name, de.name, r.startDate, r.endDate
            ) FROM Races r 
            JOIN r.districts d
            JOIN d.provinces p

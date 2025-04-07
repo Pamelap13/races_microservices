@@ -42,6 +42,8 @@ public class RaceService {
                 b.district(),
                 b.province(),
                 b.department(),
+                b.startDate(),
+                b.endDate()
                 raceDays
         );
 
