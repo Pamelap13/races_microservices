@@ -43,7 +43,7 @@ public class RaceService {
                 b.province(),
                 b.department(),
                 b.startDate(),
-                b.endDate()
+                b.endDate(),
                 raceDays
         );
 
